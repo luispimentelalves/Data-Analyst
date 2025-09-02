@@ -248,7 +248,7 @@ def eliminarOuvinte():
             break
 
     print("-"*60)
-    print("Listagem atualizada de ouvintes após eleminação de registos:")
+    print("Listagem atualizada de ouvintes:")
     verDadosOuvinte()
     print("-"*60)
 
@@ -291,8 +291,8 @@ def verRankingOuvintes():
     
     print("\n")
     print("-"*60)
-    print("\t"*3, 'R A N K I N G')
-    print("\n")
+    print("\t"*3,  'R A N K I N G')
+    
     ranking = sorted(listagemOuvintes, key=lambda x: (-int(x['Vitorias']), int(x['Participacoes'])))
     
     maxParticipacoes = max(int(ouvinte['Participacoes']) for ouvinte in listagemOuvintes)
@@ -308,10 +308,9 @@ def verRankingOuvintes():
     #   de seguida (em caso de empate de vitórias), pelo número de participações (em ordem crescente).
     #   Resumindo: os ouvintes são classificados com base no número de vitórias,
     #       e se dois ou mais ouvintes tiverem o mesmo número de vitórias, serão classificados com base no número de participações.
-    print("Posição/Nome:\t Participações:\t Vitórias:\t Ratio:")
-    print("-"*12,"\t","-"*12,"\t","-"*10,"\t","-"*9)
+    
     for i, user in enumerate(ranking, start=1):
-        print(f"{i}º - {user["Nome"]}\t {user["Participacoes"]}\t\t {user["Vitorias"]}\t\t  {int(user['Vitorias'])/maxParticipacoes :.2f} ")
+        print(f"{i}º - {user} \t {int(user['Vitorias'])/maxParticipacoes :.2f} ")
     print("-"*60)
 
 # Função para mostrar os detalhes (nº participações e nº vitorias) de todos os participantes/ouvintes registados no programa
@@ -371,7 +370,7 @@ def jogar():
     diferencas = []
     vencedoresAprox = []
 
-    # seleccao da quantidade de ouvintes que vão a jogo (minimo=2, maximo=total de ouvintes registados)
+    # seleccao da quantidade de ouvintes que vão a jogo (minimo= , maximo= )
     numJogadores = random.randint(2,len(listagemOuvintes))
     
     #preenchimento da lista "jogadores" com os numeros dos ouvintes registados na listagem de ouvintes
@@ -382,7 +381,7 @@ def jogar():
 
     # Geração aleatoria de um dos limites.
     # Obtenção do limite complementar mediante tolerancia de 150g.
-    # Geração aleatoria do peso certo do saco entre os limites gerados anteriormente 
+    # Geração do peso certo entre os limites gerados anteriormente 
     qualLimite = random.randint(1,2)
     if qualLimite == 1:
         limiteInferior = random.randint(1000,5000)
@@ -393,7 +392,7 @@ def jogar():
         limiteInferior = limiteSuperior-150
         pesoSaco = random.randint(limiteInferior, limiteSuperior)
 
-    # geração aleatoria das apostas unicas para cada um dos jogadores seleccionados
+    # geração das apostas aleatorias e unicas para cada um dos jogadores seleccionados
     # preenchimento da lista de apostas
     while len(apostas) < numJogadores:
         apostaJogador = random.randint(limiteInferior, limiteSuperior)
@@ -401,7 +400,7 @@ def jogar():
             apostas.append(apostaJogador)
 
     #impressão dos jogadores seleccionados por ordem de participação
-    #incremento de +1 participação na BS dos participantes
+    #incremento de +1 participação em todos os participantes
     #atualização do ficheiro TXT com a listagem de artigos atualizada com o numero de participações
     print("-"*60)
     print("Listagem de jogadores e respectivas apostas")
